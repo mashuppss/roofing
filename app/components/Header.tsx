@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image'; // Import the Image component
 import ThemeToggle from './ThemeToggle'; // Import the theme toggle
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa'; // Import social icons
+import nextConfig from '../../next.config.mjs'; // Import the config
 
 // Suggestion: Move socialLinks to a shared constants file (e.g., app/lib/constants.ts)
 // and import it here and in Footer.tsx to avoid duplication.
@@ -14,6 +15,9 @@ const socialLinks = [
   { label: 'LinkedIn', icon: <FaLinkedinIn />, url: '#' },
   { label: 'Instagram', icon: <FaInstagram />, url: '#' },
 ];
+
+// Get basePath from config, default to empty string if not set
+const basePath = nextConfig.basePath || '';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -53,7 +57,7 @@ export default function Header() {
         {/* Increased height and width from h-10 w-40 to h-12 w-48 */}
         <Link href="/" className="relative h-12 w-48 bg-primary-light dark:bg-primary-dark p-1 rounded-md"> {/* Adjust padding/rounded as needed */}
           <Image
-            src="/assets/logo.png" // Path relative to public directory
+            src={`${basePath}/assets/logo.png`} // Use basePath variable
             alt="RoofReplacementsLLC Logo"
             fill // Use fill to make it responsive within the container
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Example sizes, adjust as needed
