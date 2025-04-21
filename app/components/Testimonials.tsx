@@ -106,7 +106,7 @@ export default function Testimonials() {
           {testimonialsData.map((testimonial, index) => (
             <div
               key={index}
-              ref={el => cardsRef.current[index] = el}
+              ref={el => { cardsRef.current[index] = el; }}
               className="bg-card-light dark:bg-card-dark p-8 rounded-xl shadow-lg border border-border-light dark:border-border-dark
                          flex flex-col items-center text-center h-full
                          transform transition duration-300 ease-in-out hover:scale-[1.03] hover:shadow-xl

@@ -70,25 +70,25 @@ export default function Services() {
           We offer comprehensive roofing solutions tailored to your needs, ensuring quality and durability.
         </p>
         {/* Grid container - adjust gap/columns if needed */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center"> {/* Use justify-items-center */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
           {servicesData.map((service, index) => (
             <div
               key={index}
-              ref={el => cardsRef.current[index] = el} // Assign ref to each card
+              ref={el => { cardsRef.current[index] = el; }} // Assign ref to each card
               // Removed fixed w/h. Added w-full, max-w-lg, min-h-96
               className="w-full max-w-lg min-h-96 bg-background-light dark:bg-background-dark p-0 rounded-xl shadow-lg border border-border-light dark:border-border-dark
                          transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-xl
                          flex flex-col items-center text-center overflow-hidden
-                         invisible translate-y-[50px]" // Initial state: hidden and shifted down
+                         invisible translate-y-[50px]" // Initial state for GSAP
             >
-              {/* Top section for Icon: Keep h-48 */}
-              <div className="w-full h-48 bg-gray-200 dark:bg-gray-800/60 flex justify-center items-center flex-shrink-0">
+              {/* Icon Container */}
+              <div className="w-full h-40 bg-gradient-to-br from-primary-light/20 to-primary-dark/20 dark:from-primary-light/10 dark:to-primary-dark/10 flex items-center justify-center mb-6">
                 {service.icon}
               </div>
-              {/* Bottom section for Text: Keep p-6, flex-grow */}
-              <div className="p-6 flex flex-col items-center flex-grow overflow-y-auto">
+              {/* Content Container */}
+              <div className="px-6 pb-8 flex flex-col flex-grow">
                 <h3 className="text-xl font-semibold mb-3 text-text-light dark:text-text-dark">{service.title}</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">{service.description}</p>
+                <p className="text-gray-600 dark:text-gray-400 text-base flex-grow">{service.description}</p>
               </div>
             </div>
           ))}

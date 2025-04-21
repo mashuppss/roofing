@@ -148,7 +148,7 @@ export default function AboutUs() {
                             {timelineData.map((item, index) => (
                                 <div
                                     key={index}
-                                    ref={el => timelineItemsRef.current[index] = el} // Assign ref to each item
+                                    ref={el => { timelineItemsRef.current[index] = el; }} // Assign ref to each item
                                     className="timeline-item relative invisible translate-x-[-30px]" // Initial state for item animation
                                 >
                                     <TimelineIcon />

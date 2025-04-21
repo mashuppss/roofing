@@ -3,23 +3,27 @@
 
 import * as React from 'react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
-import type { ThemeProviderProps } from 'next-themes/dist/types';
+import type { ThemeProviderProps } from 'next-themes';
 
-export default function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+// Define props for *our* component, including children
+interface CustomThemeProviderProps extends ThemeProviderProps {
+  children: React.ReactNode;
+}
+
+// Use the custom props type here
+export default function ThemeProvider({ children, ...props }: CustomThemeProviderProps) {
   const [isMounted, setIsMounted] = React.useState(false);
 
   React.useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  // Avoid rendering theme-dependent UI until mounted on the client
+  // Prevent hydration mismatch by not rendering until mounted
   if (!isMounted) {
-    // Render children directly or a placeholder to avoid layout shifts
-    // Returning null might cause hydration errors if server/client mismatch
-     return <>{children}</>;
-    // Alternatively, render a basic structure matching the server render
-    // return <div style={{ visibility: 'hidden' }}>{children}</div>;
+    // You could return null or a loading skeleton here
+    return null;
   }
 
+  // Pass the rest of the props (which match ThemeProviderProps) to NextThemesProvider
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
 }

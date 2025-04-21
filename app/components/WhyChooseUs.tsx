@@ -80,7 +80,7 @@ export default function WhyChooseUs() {
           {whyChooseUsData.map((item, index) => (
             <div
               key={index}
-              ref={el => itemsRef.current[index] = el}
+              ref={el => { itemsRef.current[index] = el; }}
               className="bg-card-light dark:bg-card-dark p-10 rounded-xl shadow-lg border border-border-light dark:border-border-dark
                          flex flex-col items-center text-center
                          invisible translate-y-[50px]"
