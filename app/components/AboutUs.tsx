@@ -84,7 +84,6 @@ export default function AboutUs() {
     }, []);
 
     return (
-        // Keep section relative for background image
         <section id="about" ref={sectionRef} className="relative py-16 md:py-24 bg-card-light dark:bg-card-dark overflow-hidden">
             {/* Background Image Container */}
             <div className="absolute inset-0">
@@ -93,9 +92,9 @@ export default function AboutUs() {
                     alt="Roofing background"
                     fill
                     className="object-cover opacity-15 dark:opacity-5"
-                    priority
+                    priority // Keep priority if it's important for LCP
                 />
-                <div className="absolute inset-0 bg-card-light/85 dark:bg-card-dark/95"></div>
+                <div className="absolute inset-0 bg-card-light/85 dark:bg-card-dark/95"></div> {/* Overlay */}
             </div>
 
             {/* Content Container */}
