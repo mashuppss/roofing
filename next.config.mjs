@@ -25,6 +25,8 @@ const nextConfig = {
 
   // Optional: Configure basePath if deploying to a subdirectory
   basePath: '/roofing', // Replace 'your-repo-name'
+  assetPrefix: '/roofing/', // Optional, see below
+  trailingSlash: true, // Recommended for GitHub Pages
 };
 
 export default nextConfig;
