@@ -4,8 +4,12 @@ import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import nextConfig from '../../next.config.mjs'; // Import the config
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Get basePath from config, default to empty string if not set
+const basePath = nextConfig.basePath || '';
 
 // List of certification logos based on the directory listing
 const certificationLogos = [
@@ -18,7 +22,7 @@ const certificationLogos = [
   '/assets/certifications/eagle-roofing-logo.png',
   '/assets/certifications/gaf-logo.png',
   '/assets/certifications/tamko-logo-768x576.png',
-];
+].map(path => `${basePath}${path}`); // Prepend basePath to each path
 
 export default function GlobalRelationships() {
   const sectionRef = useRef(null);
@@ -86,7 +90,7 @@ export default function GlobalRelationships() {
                   className="certification-logo relative aspect-video bg-white dark:bg-gray-100 p-2 rounded-md shadow-sm flex items-center justify-center invisible translate-y-[30px]" // Added bg for contrast, initial animation state
                 >
                   <Image
-                    src={logoSrc}
+                    src={logoSrc} // Use the modified path from the array
                     alt={`Certification Logo ${index + 1}`}
                     fill
                     sizes="(max-width: 768px) 30vw, 15vw"

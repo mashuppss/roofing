@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image'; // Import Image component
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
+import nextConfig from '../../next.config.mjs'; // Import the config
 
 // Suggestion: Move socialLinks to a shared constants file
 const socialLinks = [
@@ -12,6 +13,8 @@ const socialLinks = [
   { label: 'Instagram', icon: <FaInstagram />, url: '#' },
 ];
 
+const basePath = nextConfig.basePath || '';
+
 export default function Footer() {
   return (
     <footer className="bg-navy text-gray-200 dark:text-gray-300 py-24 mt-16 border-t border-border-dark/50">
@@ -20,7 +23,7 @@ export default function Footer() {
         <div>
           <Link href="/" className="relative inline-block h-10 w-40 mb-4 bg-primary-light dark:bg-primary-dark p-1 rounded-md">
             <Image
-              src="/assets/logo.png"
+              src={`${basePath}/assets/logo.png`} 
               alt="RoofReplacementsLLC Logo"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

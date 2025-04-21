@@ -4,8 +4,12 @@ import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import nextConfig from '../../next.config.mjs'; // Import the config
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Get basePath from config, default to empty string if not set
+const basePath = nextConfig.basePath || '';
 
 // Simple icon for timeline points
 const TimelineIcon = () => (
@@ -85,7 +89,7 @@ export default function AboutUs() {
             {/* Background Image Container */}
             <div className="absolute inset-0">
                 <Image
-                    src="/assets/inspection/Best-Roofing-Contractors-In-Your-Area-scaled-1.jpeg"
+                    src={`${basePath}/assets/inspection/Best-Roofing-Contractors-In-Your-Area-scaled-1.jpeg`} // Use basePath variable
                     alt="Roofing background"
                     fill
                     className="object-cover opacity-15 dark:opacity-5"

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import PortfolioModal from './PortfolioModal'; // Import the modal component
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import nextConfig from '../../next.config.mjs'; // Import the config
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -28,6 +29,9 @@ const portfolioItems: PortfolioItem[] = [
   { id: 5, title: 'Historic Property Slate Repair', category: 'Repair', imageUrl: 'https://placehold.co/600x400/silver/black', textParam: 'Project+5', description: 'Careful repair and replacement...', details: ['Salvaged Slate Matching', 'Traditional Copper Work', 'Structural Assessment'] },
   { id: 6, title: 'New Construction Shingles', category: 'Installation', imageUrl: 'https://placehold.co/600x400/lightgray/black', textParam: 'Project+6', description: 'Efficient installation of architectural shingles...', details: ['Owens Corning Duration Shingles', 'Ice & Water Shield Application', 'Ridge Vent Installation'] },
 ];
+
+// Get basePath from config, default to empty string if not set
+const basePath = nextConfig.basePath || '';
 
 export default function Portfolio() {
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
@@ -84,7 +88,7 @@ export default function Portfolio() {
         <div className="absolute inset-0">
           {/* ... Image and Overlay ... */}
           <Image
-            src="/assets/homepage05.gif"
+            src={`${basePath}/assets/homepage05.gif`} // Use basePath variable
             alt="Portfolio background"
             fill
             className="object-cover opacity-50 dark:opacity-30"

@@ -3,6 +3,10 @@
 import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { gsap } from 'gsap'; // Import GSAP
+import nextConfig from '../../next.config.mjs'; // Import the config
+
+// Get basePath from config, default to empty string if not set
+const basePath = nextConfig.basePath || '';
 
 export default function HeroSection() {
   const heroRef = useRef(null);
@@ -45,7 +49,7 @@ export default function HeroSection() {
       {/* Background Container */}
       <div className="absolute inset-0 bg-gray-900"> {/* Fallback background */}
          <img
-           src="/assets/homepage01.gif"
+           src={`${basePath}/assets/homepage01.gif`} // Use basePath variable
            alt="Roofing work background"
            className="absolute inset-0 w-full h-full object-cover opacity-40" // Adjust opacity if needed
          />
