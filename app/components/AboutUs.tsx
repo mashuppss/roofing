@@ -104,7 +104,7 @@ export default function AboutUs() {
                 <div ref={topImageRef} className="mb-12 md:mb-16 h-64 md:h-96 lg:h-[500px] rounded-lg overflow-hidden shadow-xl invisible translate-y-[50px]">
                     <div className="relative w-full h-full">
                         <Image
-                            src="/assets/homepage09.jpg"
+                            src={`${basePath}/assets/inspection/Best-Roofing-Contractors-In-Your-Area-scaled-1.jpeg`}
                             alt="Roofing team working on a roof"
                             fill
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1000px" // Adjust sizes
