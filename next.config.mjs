@@ -13,7 +13,7 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'via.placeholder.com',
         port: '',
-        pathname: '/roofing', // Allow any path under this hostname
+        pathname: '/**', // Allow any path under this hostname
       },
       // Add other allowed hostnames here if needed
     ],
@@ -24,7 +24,7 @@ const nextConfig = {
   output: 'export',
 
   // Optional: Configure basePath if deploying to a subdirectory
-  // basePath: '/your-repo-name', // Replace 'your-repo-name'
+  basePath: '/roofing', // Replace 'your-repo-name'
 };
 
 export default nextConfig;
