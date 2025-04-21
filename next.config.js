@@ -20,6 +20,17 @@ const nextConfig = {
     // Deprecated 'domains' option (use remotePatterns instead if possible)
     // domains: ['placehold.co', 'via.placeholder.com'],
   },
+
+  // Add the output export configuration
+  output: 'export',
+
+  // Optional: Configure basePath if deploying to a subdirectory
+  // basePath: '/your-repo-name', // Replace 'your-repo-name'
+
+  // Optional: Disable image optimization if using next/image
+  // images: {
+  //   unoptimized: true,
+  // },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
