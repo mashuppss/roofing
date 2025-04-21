@@ -13,7 +13,7 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'via.placeholder.com',
         port: '',
-        pathname: '/**', // Allow any path under this hostname
+        pathname: '/roofing', // Allow any path under this hostname
       },
       // Add other allowed hostnames here if needed
     ],
