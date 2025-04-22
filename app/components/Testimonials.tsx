@@ -3,10 +3,14 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-// Import quote icons
 import { FaQuoteLeft, FaQuoteRight } from 'react-icons/fa';
+import Image from 'next/image'; // Import Image component
+import nextConfig from '../../next.config.mjs'; // Import the config
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Get basePath from config
+const basePath = nextConfig.basePath || '';
 
 // Star Icon Component - Suggestion: Use yellow-500 for better contrast
 const StarIcon = ({ filled }: { filled: boolean }) => (
@@ -29,37 +33,43 @@ const testimonialsData = [
     quote: "RoofReplacementsLLC did an outstanding job on our new roof. Professional, efficient, and the quality is top-notch! We felt informed throughout the whole process.",
     name: "John D.",
     location: "Orlando, FL",
-    rating: 5
+    rating: 5,
+    imageUrl: `${basePath}/assets/customers/1.png` // Added image URL
   },
   {
     quote: "Their team was courteous and cleaned up perfectly after the job was done. The repair was done quickly and effectively. Highly recommend their services!",
     name: "Sarah M.",
     location: "Winter Park, FL",
-    rating: 5
+    rating: 5,
+    imageUrl: `${basePath}/assets/customers/2.png` // Added image URL
   },
   {
     quote: "From the initial inspection to the final walkthrough, the process was seamless and stress-free. Very happy with the result and the professionalism.",
     name: "David R.",
     location: "Lake Mary, FL",
-    rating: 5
+    rating: 5,
+    imageUrl: `${basePath}/assets/customers/3.png` // Added image URL
   },
   {
     quote: "Found a leak that two other companies missed. They fixed it promptly and at a fair price. Excellent communication.",
     name: "Emily C.",
     location: "Altamonte Springs, FL",
-    rating: 4
+    rating: 4,
+    imageUrl: `${basePath}/assets/customers/4.png` // Added image URL
   },
   {
     quote: "The new roof looks fantastic and the installation crew was incredibly professional and efficient. Would definitely use them again.",
     name: "Michael B.",
     location: "Oviedo, FL",
-    rating: 5
+    rating: 5,
+    imageUrl: `${basePath}/assets/customers/5.png` // Added image URL
   },
   {
     quote: "Great value and excellent service. They explained all the options clearly and helped us choose the best roof for our budget.",
     name: "Jessica L.",
     location: "Casselberry, FL",
-    rating: 5
+    rating: 5,
+    imageUrl: `${basePath}/assets/customers/6.png` // Added image URL
   }
 ];
 
@@ -95,6 +105,7 @@ export default function Testimonials() {
   return (
     <section id="testimonials" ref={sectionRef} className="py-16 md:py-24 bg-background-light dark:bg-background-dark overflow-hidden">
       <div className="container mx-auto px-4">
+        {/* Title and Subtitle */}
         <h2 ref={titleRef} className="text-3xl md:text-4xl font-bold text-center mb-4 text-text-light dark:text-text-dark invisible translate-y-[50px]">
           What Our Clients Say
         </h2>
@@ -107,23 +118,38 @@ export default function Testimonials() {
             <div
               key={index}
               ref={el => { cardsRef.current[index] = el; }}
-              className="bg-card-light dark:bg-card-dark p-8 rounded-xl shadow-lg border border-border-light dark:border-border-dark
-                         flex flex-col items-center text-center h-full
+              className="bg-card-light dark:bg-card-dark p-6 md:p-8 rounded-xl shadow-lg border border-border-light dark:border-border-dark
+                         flex flex-col items-center text-center
                          transform transition duration-300 ease-in-out hover:scale-[1.03] hover:shadow-xl
-                         invisible translate-y-[50px]"
+                         invisible translate-y-[50px]" // Keep h-full if needed for alignment, otherwise remove
             >
+              {/* Customer Image and Info Section */}
+              <div className="mb-6 flex flex-col items-center">
+                <div className="relative w-24 h-24 rounded-full overflow-hidden bg-primary-light/10 dark:bg-primary-dark/20 ring-2 ring-primary-light/30 dark:ring-primary-dark/40 mb-3">
+                  <Image
+                    src={testimonial.imageUrl}
+                    alt={`Photo of ${testimonial.name}`}
+                    fill
+                    sizes="96px" // Corresponds to w-24
+                    className="object-contain p-1" // Use contain if images aren't square, adjust padding if needed
+                    unoptimized // Important due to static export config
+                  />
+                </div>
+                <p className="font-semibold text-lg text-text-light dark:text-text-dark">{testimonial.name}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.location}</p>
+              </div>
+
+              {/* Rating */}
               <Rating score={testimonial.rating} />
-              <div className="relative flex-grow flex flex-col justify-center">
-                <FaQuoteLeft className="absolute top-0 left-0 text-3xl text-gray-300 dark:text-gray-600 opacity-50" />
-                <blockquote className="text-gray-800 dark:text-gray-200 italic text-lg my-4 px-8 z-10">
+
+              {/* Quote Section */}
+              <div className="relative flex-grow mt-4"> {/* Added margin-top */}
+                <FaQuoteLeft className="absolute -top-2 -left-2 text-3xl text-gray-300 dark:text-gray-600 opacity-50" />
+                <blockquote className="text-gray-700 dark:text-gray-300 italic text-base md:text-lg px-4 z-10"> {/* Adjusted text size and padding */}
                   {testimonial.quote}
                 </blockquote>
-                <FaQuoteRight className="absolute bottom-0 right-0 text-3xl text-gray-300 dark:text-gray-600 opacity-50" />
+                <FaQuoteRight className="absolute -bottom-2 -right-2 text-3xl text-gray-300 dark:text-gray-600 opacity-50" />
               </div>
-              <footer className="mt-auto pt-4">
-                <p className="font-semibold text-text-light dark:text-text-dark">{testimonial.name}</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.location}</p>
-              </footer>
             </div>
           ))}
         </div>
