@@ -38,14 +38,14 @@ const testimonialsData = [
   },
   {
     quote: "Their team was courteous and cleaned up perfectly after the job was done. The repair was done quickly and effectively. Highly recommend their services!",
-    name: "Sarah M.",
+    name: "David R.",
     location: "Winter Park, FL",
     rating: 5,
     imageUrl: `${basePath}/assets/customers/2.png` // Added image URL
   },
   {
     quote: "From the initial inspection to the final walkthrough, the process was seamless and stress-free. Very happy with the result and the professionalism.",
-    name: "David R.",
+    name: "Sarah M.",
     location: "Lake Mary, FL",
     rating: 5,
     imageUrl: `${basePath}/assets/customers/3.png` // Added image URL
@@ -59,14 +59,14 @@ const testimonialsData = [
   },
   {
     quote: "The new roof looks fantastic and the installation crew was incredibly professional and efficient. Would definitely use them again.",
-    name: "Michael B.",
+    name: "Jessica L.",
     location: "Oviedo, FL",
     rating: 5,
     imageUrl: `${basePath}/assets/customers/5.png` // Added image URL
   },
   {
     quote: "Great value and excellent service. They explained all the options clearly and helped us choose the best roof for our budget.",
-    name: "Jessica L.",
+    name: "Michael B.",
     location: "Casselberry, FL",
     rating: 5,
     imageUrl: `${basePath}/assets/customers/6.png` // Added image URL
