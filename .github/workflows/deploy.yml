@@ -1,0 +1,67 @@
+# filepath: /Users/zeesean/Documents/roofreplacement/roof-replacement-20/roof-replacements-llc/roof-replacements-llc/.github/workflows/deploy.yml
+name: Deploy Next.js site to Pages
+
+on:
+  push:
+    branches: ["main"] # Or your default branch
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # --- Add this debug step ---
+      - name: List files in root
+        run: ls -la
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # Use your Node.js version
+          cache: 'npm'
+
+      # --- Caching (Keep for now, but be aware it could be an issue) ---
+      - name: Restore cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            .next/cache
+          # Generate key based on lock file
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-
+
+      # --- Change to npm ci ---
+      - name: Install dependencies
+        run: npm ci # Use ci for clean install based on lockfile
+
+      - name: Build with Next.js
+        run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
