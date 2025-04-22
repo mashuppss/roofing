@@ -9,29 +9,30 @@ import nextConfig from '../../next.config.mjs'; // Import the config
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Define the type for the project data
+// Get basePath from config, default to empty string if not set
+const basePath = nextConfig.basePath || '';
+
+// Define the type for the project data (removed textParam)
 interface PortfolioItem {
   id: number;
   title: string;
   category: string;
-  imageUrl: string; // Base URL including colors/dimensions but NOT .png or text
-  textParam: string; // Separate text parameter
+  imageUrl: string; // Will hold the direct path to the image
   description?: string;
   details?: string[];
 }
 
-// Updated portfolio items with base URL and separate text param
+// Updated portfolio items with actual image paths
 const portfolioItems: PortfolioItem[] = [
-  { id: 1, title: 'Modern Residence Roof', category: 'Replacement', imageUrl: 'https://placehold.co/600x400/grey/white', textParam: 'Project+1', description: 'Complete asphalt shingle roof replacement...', details: ['GAF Timberline HDZ Shingles', 'Synthetic Underlayment', 'Improved Ventilation System'] },
-  { id: 2, title: 'Commercial Flat Roof', category: 'Repair', imageUrl: 'https://placehold.co/600x400/dimgray/white', textParam: 'Project+2', description: 'Leak detection and repair...', details: ['TPO Membrane Patching', 'Seam Inspection and Repair', 'Drainage Cleaning'] },
-  { id: 3, title: 'Suburban Home Inspection', category: 'Inspection', imageUrl: 'https://placehold.co/600x400/darkgray/white', textParam: 'Project+3', description: 'Detailed pre-sale roof inspection...', details: ['Drone Inspection Utilized', 'Comprehensive Report Provided', 'Minor Sealant Repairs Recommended'] },
-  { id: 4, title: 'Luxury Villa Tile Roof', category: 'Replacement', imageUrl: 'https://placehold.co/600x400/gray/white', textParam: 'Project+4', description: 'Installation of premium clay tile roofing...', details: ['Spanish Clay Tiles', 'Copper Flashing Details', 'Enhanced Water Shielding'] },
-  { id: 5, title: 'Historic Property Slate Repair', category: 'Repair', imageUrl: 'https://placehold.co/600x400/silver/black', textParam: 'Project+5', description: 'Careful repair and replacement...', details: ['Salvaged Slate Matching', 'Traditional Copper Work', 'Structural Assessment'] },
-  { id: 6, title: 'New Construction Shingles', category: 'Installation', imageUrl: 'https://placehold.co/600x400/lightgray/black', textParam: 'Project+6', description: 'Efficient installation of architectural shingles...', details: ['Owens Corning Duration Shingles', 'Ice & Water Shield Application', 'Ridge Vent Installation'] },
+  { id: 1, title: 'Modern Residence Roof', category: 'Replacement', imageUrl: `${basePath}/assets/roofing/1.jpg`, description: 'Complete asphalt shingle roof replacement...', details: ['GAF Timberline HDZ Shingles', 'Synthetic Underlayment', 'Improved Ventilation System'] },
+  { id: 2, title: 'Commercial Flat Roof', category: 'Repair', imageUrl: `${basePath}/assets/roofing/2.jpg`, description: 'Leak detection and repair...', details: ['TPO Membrane Patching', 'Seam Inspection and Repair', 'Drainage Cleaning'] },
+  { id: 3, title: 'Suburban Home Inspection', category: 'Inspection', imageUrl: `${basePath}/assets/roofing/3.jpg`, description: 'Detailed pre-sale roof inspection...', details: ['Drone Inspection Utilized', 'Comprehensive Report Provided', 'Minor Sealant Repairs Recommended'] },
+  { id: 4, title: 'Luxury Villa Tile Roof', category: 'Replacement', imageUrl: `${basePath}/assets/roofing/4.jpg`, description: 'Installation of premium clay tile roofing...', details: ['Spanish Clay Tiles', 'Copper Flashing Details', 'Enhanced Water Shielding'] },
+  { id: 5, title: 'Historic Property Slate Repair', category: 'Repair', imageUrl: `${basePath}/assets/roofing/5.jpg`, description: 'Careful repair and replacement...', details: ['Salvaged Slate Matching', 'Traditional Copper Work', 'Structural Assessment'] },
+  { id: 6, title: 'New Construction Shingles', category: 'Installation', imageUrl: `${basePath}/assets/roofing/6.jpg`, description: 'Efficient installation of architectural shingles...', details: ['Owens Corning Duration Shingles', 'Ice & Water Shield Application', 'Ridge Vent Installation'] },
+  { id: 7, title: 'Leak Fix and Patching', category: 'Repair', imageUrl: `${basePath}/assets/roofing/7.jpg`, description: 'Located and repaired persistent roof leak.' },
+  { id: 8, title: 'Luxury Estate Roofing', category: 'Replacement', imageUrl: `${basePath}/assets/roofing/8.jpg`, description: 'High-end roofing materials for a luxury property.' },
 ];
-
-// Get basePath from config, default to empty string if not set
-const basePath = nextConfig.basePath || '';
 
 export default function Portfolio() {
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
@@ -92,7 +93,7 @@ export default function Portfolio() {
             alt="Portfolio background"
             fill
             className="object-cover opacity-50 dark:opacity-30"
-            unoptimized
+            unoptimized // Keep unoptimized due to next.config.js setting
           />
           <div className="absolute inset-0 bg-card-light/70 dark:bg-card-dark/80"></div>
         </div>
@@ -114,13 +115,13 @@ export default function Portfolio() {
                 className="portfolio-item group relative overflow-hidden rounded-lg shadow-lg cursor-pointer aspect-[3/2] invisible translate-y-[50px]"
                 onClick={() => openModal(item)}
               >
-                {/* ... Image and overlay for portfolio item ... */}
                  <Image
-                  src={`${item.imageUrl}.png?text=${item.textParam}`}
+                  src={item.imageUrl} // Use the direct image path from the array
                   alt={item.title}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover transform transition duration-500 ease-in-out group-hover:scale-110"
+                  unoptimized // Explicitly add unoptimized here too for clarity
                 />
                 {/* Hover Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent group-hover:from-black/80 group-hover:via-black/50 transition duration-300 ease-in-out flex flex-col justify-end p-4 md:p-6">
